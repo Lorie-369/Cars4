@@ -1,4 +1,3 @@
-
 int motorLeft   = 4;
 int motorRight  = 3;
 
