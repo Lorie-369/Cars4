@@ -1,11 +1,17 @@
-int motorleft_forward = 2;
-int motorright_forward = 5; 
+int motorLeft = 4;
+int motorRight = 3;
+
+int sensorLeft = 10;
+int sensorMid = 9;
+int sensorRight = 8;
+
+// White 0
+// Black 1
+
 void setup() {
   Serial.begin(9600);
-  
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  digitalWrite(motorleft_forward, 
+  // digitalWrite(motorLeft, HIGH);
 }
