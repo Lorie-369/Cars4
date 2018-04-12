@@ -1,9 +1,9 @@
 
-int motorLeft = 4;
-int motorRight = 3;
+int motorLeft   = 4;
+int motorRight  = 3;
 
-int sensorLeft = 10;
-int sensorMid = 9;
+int sensorLeft  = 10;
+int sensorMid   = 9;
 int sensorRight = 8;
 
 int lastRead[3] = {0, 0, 0};
@@ -16,15 +16,26 @@ void setup() {
 }
 
 void loop() {
-  int rLeft = digitalRead(sensorLeft);
-  int rRight = digitalRead(sensorRight);
-  int rMid = digitalRead(sensorMid);
+  int rLeft   = digitalRead(sensorLeft);
+  int rRight  = digitalRead(sensorRight);
+  int rMid    = digitalRead(sensorMid);
 
+  for (int i = 0; i < 3; i++) {
+      Serial.print(lastRead[i]); Serial.print(" ");
+    }
+   Serial.print("\n");
+   
   if (rLeft == 1 && rRight == 1 && rMid == 1) {
-    if (lastRead[0] == 0 && lastRead[1] == 1 && lastRead[2] == 0)
+    Serial.print("All Black ");
+    if (lastRead[0] == 0 && lastRead[1] == 1 && lastRead[2] == 0) {
       Stop();
-    else
+      Serial.print("Stop");
+    }
+    else {
       goForward();
+      Serial.print("Forward");
+    }
+    Serial.print("\n");
   }
   else if (rLeft == 0 && rRight == 0 && rMid == 1) {
     goForward();
@@ -38,8 +49,10 @@ void loop() {
   else {
     delay(1000);
     Stop();
+    Serial.println("else Stop");
   }
   writeHistory(rLeft, rMid, rRight);
+  delay(10);
 }
 
 void goForward() {
