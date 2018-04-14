@@ -72,6 +72,7 @@ void Stop() {
   analogWrite(rightMotor, 0);
 }
 
+// Hard turns.
 void goFullLeft() {
   analogWrite(leftMotor, highSpeed);
   analogWrite(rightMotor, lowSpeed);
@@ -82,6 +83,7 @@ void goFullRight() {
   analogWrite(rightMotor, highSpeed);
 }
 
+// Swift/light turns.
 void goLeft() {
   analogWrite(leftMotor, highSpeed);
   analogWrite(rightMotor, normalSpeed);
