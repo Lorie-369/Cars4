@@ -58,6 +58,10 @@ void goForward() {
 void Stop() {
   // TODO:
   // Improve the history to track all the sensors [0...4], not just the mid sensor.
+  // history[x]:
+  // 0 – Left
+  // 1 – Mid
+  // 2 – Right
   if (history[1] == onTrack) 
     delay(1000);
   else 
