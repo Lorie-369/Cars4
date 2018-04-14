@@ -46,7 +46,8 @@ void loop() {
     goRight();
   }
   else {
-    delay(1000);
+
+
     Stop();
     Serial.println("else Stop");
   }
