@@ -45,7 +45,8 @@ void loop() {
   } else {
     Stop();
   }
-
+  // TODO:
+  // Adjust the history to track all the sensors.	
   writeHistory(0, rMid, 0);
 }
 
