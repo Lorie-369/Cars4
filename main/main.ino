@@ -64,7 +64,8 @@ void Stop() {
   // 2 – Right
   if (history[1] == onTrack) 
     delay(1000);
-  else 
+  else
+    // Adjust the delay, عشان عامل مشاكل. 
     delay(25);
     
   analogWrite(leftMotor, 0);
