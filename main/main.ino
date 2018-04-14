@@ -1,20 +1,20 @@
-int motorLeft   = 5;
-int motorRight  = 3;
+int leftMotor   = 5;
+int rightMotor  = 3;
 
-int sensorLeft      = 10;
+int leftSensor      = 10;
 int sensorMid       = 9;
-int sensorRight     = 8;
-int sensorMidLeft   = 12;
-int sensorMidRight  = 11;
+int rightSensor     = 8;
+int midLeftSensor   = 12;
+int midRightSensor  = 11;
 
-int speedHigh = 255;
-int speedMid  = 0;
-int speedLow  = 0;
+int highSpeed = 255;
+int normalSpeed  = 0;
+int lowSpeed  = 0;
 
 int onTrack = 1;
 int offTrack = 0;
 
-int lastRead[5] = {0, 0, 0, 0, 0};
+int history[5] = {0, 0, 0, 0, 0};
 
 // White 0
 // Black 1
@@ -24,11 +24,13 @@ void setup() {
 }
 
 void loop() {
-  int rLeft = digitalRead(sensorLeft);
+  // Read sensors.
+  // Left, Left<-Mid->Right, Right.
+  int rLeft = digitalRead(leftSensor);
   int rMid = digitalRead(sensorMid);
-  int rRight = digitalRead(sensorRight);
-  int rMidLeft = digitalRead(sensorMidLeft);
-  int rMidRight = digitalRead(sensorMidRight);
+  int rRight = digitalRead(rightSensor);
+  int rMidLeft = digitalRead(midLeftSensor);
+  int rMidRight = digitalRead(midRightSensor);
 
   if (rMid == onTrack) {
     goForward();
@@ -48,44 +50,47 @@ void loop() {
 }
 
 void goForward() {
-  analogWrite(motorLeft, speedHigh);
-  analogWrite(motorRight, speedHigh);
+  analogWrite(leftMotor, highSpeed);
+  analogWrite(rightMotor, highSpeed);
 }
 
 void Stop() {
-  // lastRead [0...4] not just the mid sensor
-  if (lastRead[1] == onTrack) 
+  // TODO:
+  // Improve the history to track all the sensors [0...4], not just the mid sensor.
+  if (history[1] == onTrack) 
     delay(1000);
   else 
     delay(25);
     
-  analogWrite(motorLeft, 0);
-  analogWrite(motorRight, 0);
+  analogWrite(leftMotor, 0);
+  analogWrite(rightMotor, 0);
 }
 
 void goFullLeft() {
-  analogWrite(motorLeft, speedHigh);
-  analogWrite(motorRight, speedLow);
+  analogWrite(leftMotor, highSpeed);
+  analogWrite(rightMotor, lowSpeed);
 }
 
 void goFullRight() {
-  analogWrite(motorLeft, speedLow);
-  analogWrite(motorRight, speedHigh);
+  analogWrite(leftMotor, lowSpeed);
+  analogWrite(rightMotor, highSpeed);
 }
 
 void goLeft() {
-  analogWrite(motorLeft, speedHigh);
-  analogWrite(motorRight, speedMid);
+  analogWrite(leftMotor, highSpeed);
+  analogWrite(rightMotor, normalSpeed);
 }
 
 void goRight() {
-  analogWrite(motorLeft, speedMid);
-  analogWrite(motorRight, speedHigh);
+  analogWrite(leftMotor, normalSpeed);
+  analogWrite(rightMotor, highSpeed);
 }
 
+// TODO:
+// Expand the history capability to track all the sensors.
 void writeHistory(int left, int mid, int right) {
-  lastRead[0] = left;
-  lastRead[1] = mid;
-  lastRead[2] = right;
+  history[0] = left;
+  history[1] = mid;
+  history[2] = right;
 }
 
