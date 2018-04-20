@@ -56,7 +56,7 @@ void loop() {
   }
 
   else if (rRight == onTrack) {
-    while (digitalRead(midSensor) == offTrack)
+    while (digitalRead(midSensor) == offTrack) {
       goFullLeft();
     }
     rRight = 1;
