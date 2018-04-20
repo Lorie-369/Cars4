@@ -67,7 +67,7 @@ void loop() {
     Stop();
   }
 
-  writeHistory(rLeft, rMidLeft, rMid, rMidRight, rRight);
+  writeHistory(rLeft, rMidLeft, 1, rMidRight, rRight);
 }
 
 void goForward() {
