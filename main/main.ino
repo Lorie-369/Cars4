@@ -2,12 +2,13 @@ int leftMotor   = 5;
 int rightMotor  = 3;
 
 int leftSensor      = 10;
-int sensorMid       = 9;
+int midSensor       = 9;
 int rightSensor     = 8;
 int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
-int highSpeed = 255;
+// Adjust the speed according to the motor.
+int highSpeed = 160;
 int normalSpeed  = 0;
 int lowSpeed  = 0;
 
@@ -16,38 +17,57 @@ int offTrack = 0;
 
 int history[5] = {0, 0, 0, 0, 0};
 
-// White 0
-// Black 1
-
 void setup() {
   Serial.begin(9600);
 }
 
 void loop() {
-  // Read sensors.
-  // Left, Left<-Mid->Right, Right.
   int rLeft = digitalRead(leftSensor);
-  int rMid = digitalRead(sensorMid);
+  int rMid = digitalRead(midSensor);
   int rRight = digitalRead(rightSensor);
   int rMidLeft = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
   if (rMid == onTrack) {
-    goForward();
-  } else if (rMidLeft == onTrack) {
-    goRight();
-  } else if (rLeft == onTrack) {
-    goFullRight();
-  } else if (rMidRight == onTrack) {
-    goLeft();
-  } else if (rRight == onTrack) {
-    goFullLeft();
-  } else {
+    while (!digitalRead(midSensor)) {
+      goForward();
+    }
+    rMid = 1;
+  }
+
+  else if (rMidLeft == onTrack) {
+    while (!digitalRead(midLeftSensor)) {
+      goRight();
+    }
+    rMidRight = 1;
+  }
+
+  else if (rLeft == onTrack) {
+    while (!digitalRead(leftSensor)) {
+      goFullRight();
+    }
+    rLeft = 1;
+  }
+
+  else if (rMidRight == onTrack) {
+    while (!digitalRead(midRightSensor)) {
+      goLeft();
+    }
+    rMidRight = 1;
+  }
+
+  else if (rRight == onTrack) {
+    while (!digitalRead(rightSensor)) {
+      goFullLeft();
+    }
+    rRight = 1;
+  }
+
+  else {
     Stop();
   }
-  // TODO:
-  // Adjust the history to track all the sensors.	
-  writeHistory(0, rMid, 0);
+
+  writeHistory(rLeft, rMidLeft, rMid, rMidRight, rRight);
 }
 
 void goForward() {
@@ -56,13 +76,7 @@ void goForward() {
 }
 
 void Stop() {
-  // TODO:
-  // Improve the history to track all the sensors [0...4], not just the mid sensor.
-  // history[x]:
-  //  0 – Left
-  //  1 – Mid
-  //  2 – Right
-  if (history[1] == onTrack) 
+  if (history[2] == onTrack) 
     delay(1000);
   else
     // Adjust the delay, عشان عامل مشاكل. 
@@ -96,9 +110,11 @@ void goRight() {
 
 // TODO:
 // Expand the history capability to track all the sensors.
-void writeHistory(int left, int mid, int right) {
+void writeHistory(int left, int midleft, int mid, int midright, int right) {
   history[0] = left;
-  history[1] = mid;
-  history[2] = right;
+  history[1] = midleft;
+  history[2] = mid;
+  history[3] = midright;
+  history[4] = right;
 }
 
