@@ -21,6 +21,23 @@ void setup() {
   Serial.begin(9600);
 }
 
+int blank() {
+  int rLeft = digitalRead(leftSensor);
+  int rMid = digitalRead(midSensor);
+  int rRight = digitalRead(rightSensor);
+  int rMidLeft = digitalRead(midLeftSensor);
+  int rMidRight = digitalRead(midRightSensor);
+
+  if (rLeft     == offTrack && 
+      rMid      == offTrack &&
+      rRight    == offTrack &&
+      rMidLeft  == offTrack && 
+      rMidRight == offTrack)
+    return 1;
+  else
+    return 0;
+}
+
 void loop() {
   int rLeft = digitalRead(leftSensor);
   int rMid = digitalRead(midSensor);
@@ -28,14 +45,20 @@ void loop() {
   int rMidLeft = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  if (rMid == onTrack) {
-      while (digitalRead(midSensor))
-    goForward();
+  if (blank() == 1) {
+    while (digitalRead(midSensor) == offTrack)
+      goForward();
+    rMid = 1;
+  }
+
+  else if (rMid == onTrack) {
+    while (digitalRead(midSensor))
+      goForward();
     rMid = 1;
   }
 
   else if (rMidLeft == onTrack) {
-    while (digitalRead(midSensor) == offTrack) {
+    while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goRight();
     }
     rMidRight = 1;
@@ -43,7 +66,7 @@ void loop() {
   }
 
   else if (rLeft == onTrack) {
-    while (digitalRead(midSensor) == offTrack) {
+    while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goFullRight();
     }
     rLeft = 1;
@@ -51,7 +74,7 @@ void loop() {
   }
 
   else if (rMidRight == onTrack) {
-    while (digitalRead(midSensor) == offTrack) {
+    while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goLeft();
     }
     rMidRight = 1;
@@ -59,7 +82,7 @@ void loop() {
   }
 
   else if (rRight == onTrack) {
-    while (digitalRead(midSensor) == offTrack) {
+    while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goFullLeft();
     }
     rRight = 1;
@@ -84,7 +107,7 @@ void Stop() {
   else
     // Adjust the delay, عشان عامل مشاكل. 
     delay(25);
-    
+
   analogWrite(leftMotor, 0);
   analogWrite(rightMotor, 0);
 }
