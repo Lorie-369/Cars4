@@ -35,28 +35,28 @@ void loop() {
   }
 
   else if (rMidLeft == onTrack) {
-    while (!digitalRead(midSensor)) {
+    while (digitalRead(midSensor) == offTrack) {
       goRight();
     }
     rMidRight = 1;
   }
 
   else if (rLeft == onTrack) {
-    while (!digitalRead(midSensor)) {
+    while (digitalRead(midSensor) == offTrack) {
       goFullRight();
     }
     rLeft = 1;
   }
 
   else if (rMidRight == onTrack) {
-    while (!digitalRead(midSensor)) {
+    while (digitalRead(midSensor) == offTrack) {
       goLeft();
     }
     rMidRight = 1;
   }
 
   else if (rRight == onTrack) {
-    while (!digitalRead(midSensor)) {
+    while (digitalRead(midSensor) == offTrack)
       goFullLeft();
     }
     rRight = 1;
