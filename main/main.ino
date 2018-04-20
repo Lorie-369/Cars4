@@ -39,6 +39,7 @@ void loop() {
       goRight();
     }
     rMidRight = 1;
+    goForward();
   }
 
   else if (rLeft == onTrack) {
@@ -46,6 +47,7 @@ void loop() {
       goFullRight();
     }
     rLeft = 1;
+    goForward();
   }
 
   else if (rMidRight == onTrack) {
@@ -53,6 +55,7 @@ void loop() {
       goLeft();
     }
     rMidRight = 1;
+    goForward();
   }
 
   else if (rRight == onTrack) {
@@ -60,6 +63,7 @@ void loop() {
       goFullLeft();
     }
     rRight = 1;
+    goForward();
   }
 
   else {
