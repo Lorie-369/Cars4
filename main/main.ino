@@ -8,8 +8,8 @@ int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
 // Adjust the speed according to the motor.
-int highSpeed = 160;
-int normalSpeed  = 0;
+int highSpeed = 140;
+int normalSpeed  = 100;
 int lowSpeed  = 0;
 
 int onTrack = 1;
