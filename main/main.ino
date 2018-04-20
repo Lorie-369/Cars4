@@ -36,28 +36,28 @@ void loop() {
   }
 
   else if (rMidLeft == onTrack) {
-    while (!digitalRead(midLeftSensor)) {
+    while (!digitalRead(midSensor)) {
       goRight();
     }
     rMidRight = 1;
   }
 
   else if (rLeft == onTrack) {
-    while (!digitalRead(leftSensor)) {
+    while (!digitalRead(midSensor)) {
       goFullRight();
     }
     rLeft = 1;
   }
 
   else if (rMidRight == onTrack) {
-    while (!digitalRead(midRightSensor)) {
+    while (!digitalRead(midSensor)) {
       goLeft();
     }
     rMidRight = 1;
   }
 
   else if (rRight == onTrack) {
-    while (!digitalRead(rightSensor)) {
+    while (!digitalRead(midSensor)) {
       goFullLeft();
     }
     rRight = 1;
@@ -67,7 +67,7 @@ void loop() {
     Stop();
   }
 
-  writeHistory(rLeft, rMidLeft, rMid, rMidRight, rRight);
+  writeHistory(rLeft, rMidLeft, 1, rMidRight, rRight);
 }
 
 void goForward() {
