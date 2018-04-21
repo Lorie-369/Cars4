@@ -2,10 +2,10 @@ int leftMotor   = 5;
 int rightMotor  = 3;
 
 int leftSensor      = 10;
-int midSensor       = 9;
-int rightSensor     = 8;
 int midLeftSensor   = 12;
+int midSensor       = 9;
 int midRightSensor  = 11;
+int rightSensor     = 8;
 
 // Adjust the speed according to the motor.
 int highSpeed = 140;
@@ -22,10 +22,10 @@ void setup() {
 }
 
 int blank() {
-  int rLeft = digitalRead(leftSensor);
-  int rMid = digitalRead(midSensor);
-  int rRight = digitalRead(rightSensor);
-  int rMidLeft = digitalRead(midLeftSensor);
+  int rLeft     = digitalRead(leftSensor);
+  int rMid      = digitalRead(midSensor);
+  int rRight    = digitalRead(rightSensor);
+  int rMidLeft  = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
   if (rLeft     == offTrack && 
@@ -39,10 +39,10 @@ int blank() {
 }
 
 void loop() {
-  int rLeft = digitalRead(leftSensor);
-  int rMid = digitalRead(midSensor);
-  int rRight = digitalRead(rightSensor);
-  int rMidLeft = digitalRead(midLeftSensor);
+  int rLeft     = digitalRead(leftSensor);
+  int rMid      = digitalRead(midSensor);
+  int rRight    = digitalRead(rightSensor);
+  int rMidLeft  = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
   // while (blank() == 1)
@@ -51,6 +51,7 @@ void loop() {
   if (rMid == onTrack) {
     while (digitalRead(midSensor))
       goForward();
+    rMid = 1;
   }
 
   else if (rMidLeft == onTrack) {
@@ -59,6 +60,7 @@ void loop() {
     }
     rMidRight = 1;
     goForward();
+    rMid = 1;
   }
 
   else if (rLeft == onTrack) {
@@ -67,6 +69,7 @@ void loop() {
     }
     rLeft = 1;
     goForward();
+    rMid = 1;
   }
 
   else if (rMidRight == onTrack) {
@@ -75,6 +78,7 @@ void loop() {
     }
     rMidRight = 1;
     goForward();
+    rMid = 1;
   }
 
   else if (rRight == onTrack) {
@@ -83,13 +87,14 @@ void loop() {
     }
     rRight = 1;
     goForward();
+    rMid = 1;
   }
 
   else {
     Stop();
   }
 
-  writeHistory(rLeft, rMidLeft, 1, rMidRight, rRight);
+  writeHistory(rLeft, rMidLeft, rMid, rMidRight, rRight);
 }
 
 void goForward() {
@@ -130,8 +135,6 @@ void goRight() {
   analogWrite(rightMotor, highSpeed);
 }
 
-// TODO:
-// Expand the history capability to track all the sensors.
 void writeHistory(int left, int midleft, int mid, int midright, int right) {
   history[0] = left;
   history[1] = midleft;
@@ -139,4 +142,3 @@ void writeHistory(int left, int midleft, int mid, int midright, int right) {
   history[3] = midright;
   history[4] = right;
 }
-
