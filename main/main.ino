@@ -1,18 +1,18 @@
-int leftMotor   = 5;
-int rightMotor  = 3;
+int leftMotor  = 5;
+int rightMotor = 3;
 
-int leftSensor      = 10;
-int midLeftSensor   = 12;
-int midSensor       = 9;
-int midRightSensor  = 11;
-int rightSensor     = 8;
+int leftSensor     = 10;
+int midLeftSensor  = 12;
+int midSensor      = 9;
+int midRightSensor = 11;
+int rightSensor    = 8;
 
 // Adjust the speed according to the motor.
-int highSpeed = 140;
-int normalSpeed  = 100;
-int lowSpeed  = 0;
+int highSpeed   = 140;
+int normalSpeed = 100;
+int lowSpeed    = 0;
 
-int onTrack = 1;
+int onTrack  = 1;
 int offTrack = 0;
 
 int history[5] = {0, 0, 0, 0, 0};
