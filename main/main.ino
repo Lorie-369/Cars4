@@ -45,8 +45,8 @@ void loop() {
   int rMidLeft = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  while (blank() == 1)
-    goForward();
+  // while (blank() == 1)
+  //   goForward();
 
   if (rMid == onTrack) {
     while (digitalRead(midSensor))
@@ -98,7 +98,7 @@ void goForward() {
 }
 
 void Stop() {
-  if (history[2] == onTrack) 
+  if (history[2] == onTrack || blank() == 1) 
     delay(1000);
   else
     // Adjust the delay, عشان عامل مشاكل. 
