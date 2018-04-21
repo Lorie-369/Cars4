@@ -45,16 +45,12 @@ void loop() {
   int rMidLeft = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  if (blank() == 1) {
-    while (digitalRead(midSensor) == offTrack)
-      goForward();
-    rMid = 1;
-  }
+  while (blank() == 1)
+    goForward();
 
-  else if (rMid == onTrack) {
+  if (rMid == onTrack) {
     while (digitalRead(midSensor))
       goForward();
-    rMid = 1;
   }
 
   else if (rMidLeft == onTrack) {
