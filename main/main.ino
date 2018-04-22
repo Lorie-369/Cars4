@@ -49,22 +49,23 @@ int intersection() {
 
 void loop() {
 
-  while(digitalRead(midSensor) == offTrack) {
-
-    if (digitalRead(midLeftSensor))
+  if (digitalRead(midLeftSensor))
+    while(digitalRead(midSensor) == offTrack)
       goRight();
 
-    else if (digitalRead(leftSensor))
+  else if (digitalRead(leftSensor))
+    while(digitalRead(midSensor) == offTrack)
       goFullRight();
 
-    else if (digitalRead(midRightSensor))
+  else if (digitalRead(midRightSensor))
+    while(digitalRead(midSensor) == offTrack)
       goLeft();
 
-    else if (digitalRead(rightSensor))
+  else if (digitalRead(rightSensor))
+    while(digitalRead(midSensor) == offTrack)
       goFullLeft();
 
-  }
-  
+
   goForward();
 
   // while(digitalRead(midSensor)) {
@@ -92,51 +93,51 @@ void loop() {
   //   digitalRead(midRightSensor),
   //   digitalRead(rightSensor)
   //   );
-}
+        }
 
-void goForward() {
-  analogWrite(leftMotor, highSpeed);
-  analogWrite(rightMotor, highSpeed);
-}
+        void goForward() {
+          analogWrite(leftMotor, highSpeed);
+          analogWrite(rightMotor, highSpeed);
+        }
 
-void Stop() {
-  if (history[2] == onTrack) {
-    delay(1000);
-  }
+        void Stop() {
+          if (history[2] == onTrack) {
+            delay(1000);
+          }
 
-  else
-    delay(25);
+          else
+            delay(25);
 
-  analogWrite(leftMotor, 0);
-  analogWrite(rightMotor, 0);
-}
+          analogWrite(leftMotor, 0);
+          analogWrite(rightMotor, 0);
+        }
 
 // Hard turns.
-void goFullLeft() {
-  analogWrite(leftMotor, highSpeed);
-  analogWrite(rightMotor, lowSpeed);
-}
+        void goFullLeft() {
+          analogWrite(leftMotor, highSpeed);
+          analogWrite(rightMotor, lowSpeed);
+        }
 
-void goFullRight() {
-  analogWrite(leftMotor, lowSpeed);
-  analogWrite(rightMotor, highSpeed);
-}
+        void goFullRight() {
+          analogWrite(leftMotor, lowSpeed);
+          analogWrite(rightMotor, highSpeed);
+        }
 
 // Swift/light turns.
-void goLeft() {
-  analogWrite(leftMotor, highSpeed);
-  analogWrite(rightMotor, normalSpeed);
-}
+        void goLeft() {
+          analogWrite(leftMotor, highSpeed);
+          analogWrite(rightMotor, normalSpeed);
+        }
 
-void goRight() {
-  analogWrite(leftMotor, normalSpeed);
-  analogWrite(rightMotor, highSpeed);
-}
+        void goRight() {
+          analogWrite(leftMotor, normalSpeed);
+          analogWrite(rightMotor, highSpeed);
+        }
 
-void writeHistory(int left, int midleft, int mid, int midright, int right) {
-  history[0] = left;
-  history[1] = midleft;
-  history[2] = mid;
-  history[3] = midright;
-  history[4] = right;
-}
+        void writeHistory(int left, int midleft, int mid, int midright, int right) {
+          history[0] = left;
+          history[1] = midleft;
+          history[2] = mid;
+          history[3] = midright;
+          history[4] = right;
+        }
