@@ -28,11 +28,7 @@ int blank() {
   int rMidLeft  = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  if (rLeft     == offTrack && 
-      rMid      == offTrack &&
-      rRight    == offTrack &&
-      rMidLeft  == offTrack && 
-      rMidRight == offTrack)
+  if ((rLeft + rMid + rRight + rMidLeft + rMidRight) / 5 == 0)
     return 1;
   else
     return 0;
@@ -45,81 +41,55 @@ int intersection() {
   int rMidLeft  = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  if (rLeft     == onTrack && 
-      rMid      == onTrack &&
-      rRight    == onTrack &&
-      rMidLeft  == onTrack && 
-      rMidRight == onTrack)
+  if ((rLeft + rMid + rRight + rMidLeft + rMidRight) / 5 >= 0.6)
     return 1;
   else
     return 0;
 }
 
 void loop() {
-  int rLeft     = digitalRead(leftSensor);
-  int rMid      = digitalRead(midSensor);
-  int rRight    = digitalRead(rightSensor);
-  int rMidLeft  = digitalRead(midLeftSensor);
-  int rMidRight = digitalRead(midRightSensor);
 
-  // while (blank() == 1)
-  //   goForward();
+  while(digitalRead(midSensor) == offTrack && blank() == 0) {
 
-  if (intersection() == 1 && history[2] == offTrack) {
-    while(intersection() == 1)
-      goForward();
-  }
-
-  if (blank() == 1) {
-    goForward();
-    delay(250);
-  }
-
-  if (rMid == onTrack) {
-    while (digitalRead(midSensor) && blank() == 0)
-      goForward();
-    rMid = 1;
-  }
-
-  else if (rMidLeft == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0) {
+    if (digitalRead(midLeftSensor) == onTrack)
       goRight();
-    }
 
-    rMidRight = 1;
-    rMid = 1;
-  }
-
-  else if (rLeft == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0) {
+    else if (digitalRead(leftSensor) == onTrack)
       goFullRight();
-    }
 
-    rLeft = 1;
-    rMid = 1;
-  }
-
-  else if (rMidRight == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0) {
+    else if (digitalRead(midRightSensor) == onTrack)
       goLeft();
-    }
-    rMidRight = 1;
-    rMid = 1;
-  }
 
-  else if (rRight == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0) {
+    else if (digitalRead(rightSensor) == onTrack)
       goFullLeft();
+
+  }
+  
+  while(digitalRead(midSensor)) {
+    while(intersection() == 0) {
+      goForward();
     }
-    rRight = 1;
-    rMid = 1;
+
+    if (blank()) {
+      analogWrite(leftMotor, 0);
+      analogWrite(rightMotor, 0);
+    } else {
+      goForward();
+    }
   }
 
-  else {
-    Stop();
-  }
-
-  writeHistory(rLeft, rMidLeft, rMid, rMidRight, rRight);
+  // int rLeft     = digitalRead(leftSensor);
+  // int rMid      = digitalRead(midSensor);
+  // int rRight    = digitalRead(rightSensor);
+  // int rMidLeft  = digitalRead(midLeftSensor);
+  // int rMidRight = digitalRead(midRightSensor);
+  // writeHistory(
+  //   digitalRead(leftSensor), 
+  //   digitalRead(midLeftSensor), 
+  //   digitalRead(midSensor),
+  //   digitalRead(midRightSensor),
+  //   digitalRead(rightSensor)
+  //   );
 }
 
 void goForward() {
@@ -128,12 +98,11 @@ void goForward() {
 }
 
 void Stop() {
-  if (history[2] == onTrack && blank() == 0) {
+  if (history[2] == onTrack) {
     delay(1000);
   }
 
   else
-    // Adjust the delay, عشان عامل مشاكل. 
     delay(25);
 
   analogWrite(leftMotor, 0);
