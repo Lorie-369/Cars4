@@ -65,18 +65,19 @@ void loop() {
 
   }
   
-  while(digitalRead(midSensor)) {
-    while(intersection() == 0) {
-      goForward();
-    }
+  goForward();
+  // while(digitalRead(midSensor)) {
+  //   while(intersection() == 0) {
+  //     goForward();
+  //   }
 
-    if (blank()) {
-      analogWrite(leftMotor, 0);
-      analogWrite(rightMotor, 0);
-    } else {
-      goForward();
-    }
-  }
+  //   if (blank()) {
+  //     analogWrite(leftMotor, 0);
+  //     analogWrite(rightMotor, 0);
+  //   } else {
+  //     goForward();
+  //   }
+  // }
 
   // int rLeft     = digitalRead(leftSensor);
   // int rMid      = digitalRead(midSensor);
