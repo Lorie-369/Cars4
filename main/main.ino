@@ -48,96 +48,87 @@ int intersection() {
 }
 
 void loop() {
+  while (digitalRead(midSensor) == onTrack && digitalRead(rightSensor) == offTrack)
+    goForward();
 
-  if (digitalRead(midLeftSensor))
-    while(digitalRead(midSensor) == offTrack)
-      goRight();
+  // offTrack
+  if (intersection()) {
+    while (digitalRead(rightSensor) == onTrack || digitalRead(leftSensor) == onTrack)
+      goForward();
+  }
 
-  else if (digitalRead(leftSensor))
-    while(digitalRead(midSensor) == offTrack)
-      goFullRight();
+  else if (blank() == 0) {
 
-  else if (digitalRead(midRightSensor))
-    while(digitalRead(midSensor) == offTrack)
-      goLeft();
+    if (digitalRead(leftSensor))
+      while (digitalRead(midSensor) == offTrack)
+        goFullLeft();
+    
+    if (digitalRead(rightSensor))
+      while (digitalRead(midSensor) == offTrack)
+        goFullRight();
 
-  else if (digitalRead(rightSensor))
-    while(digitalRead(midSensor) == offTrack)
-      goFullLeft();
+    if (digitalRead(midLeftSensor))
+      while (digitalRead(midSensor) == offTrack)
+        goRight();
 
+    if (digitalRead(midRightSensor))
+      while (digitalRead(midSensor) == offTrack)
+        goLeft();
+    
+  } else if (blank() == 1) {
+    goForward();
+    delay(250);
+    analogWrite(leftMotor, 0);
+    analogWrite(rightMotor, 0);
+  } else {
+    analogWrite(leftMotor, 0);
+    analogWrite(rightMotor, 0);
+  }
+}
 
-  goForward();
+void goForward() {
+  analogWrite(leftMotor, highSpeed);
+  analogWrite(rightMotor, highSpeed);
+}
 
-  // while(digitalRead(midSensor)) {
-  //   while(intersection() == 0) {
-  //     goForward();
-  //   }
+void Stop() {
+  if (history[2] == onTrack) {
+    delay(1000);
+  }
 
-  //   if (blank()) {
-  //     analogWrite(leftMotor, 0);
-  //     analogWrite(rightMotor, 0);
-  //   } else {
-  //     goForward();
-  //   }
-  // }
+  else
+    delay(25);
 
-  // int rLeft     = digitalRead(leftSensor);
-  // int rMid      = digitalRead(midSensor);
-  // int rRight    = digitalRead(rightSensor);
-  // int rMidLeft  = digitalRead(midLeftSensor);
-  // int rMidRight = digitalRead(midRightSensor);
-  // writeHistory(
-  //   digitalRead(leftSensor), 
-  //   digitalRead(midLeftSensor), 
-  //   digitalRead(midSensor),
-  //   digitalRead(midRightSensor),
-  //   digitalRead(rightSensor)
-  //   );
-        }
-
-        void goForward() {
-          analogWrite(leftMotor, highSpeed);
-          analogWrite(rightMotor, highSpeed);
-        }
-
-        void Stop() {
-          if (history[2] == onTrack) {
-            delay(1000);
-          }
-
-          else
-            delay(25);
-
-          analogWrite(leftMotor, 0);
-          analogWrite(rightMotor, 0);
-        }
+  analogWrite(leftMotor, 0);
+  analogWrite(rightMotor, 0);
+}
 
 // Hard turns.
-        void goFullLeft() {
-          analogWrite(leftMotor, highSpeed);
-          analogWrite(rightMotor, lowSpeed);
-        }
+void goFullLeft() {
+  analogWrite(leftMotor, highSpeed);
+  analogWrite(rightMotor, lowSpeed);
+}
 
-        void goFullRight() {
-          analogWrite(leftMotor, lowSpeed);
-          analogWrite(rightMotor, highSpeed);
-        }
+void goFullRight() {
+  analogWrite(leftMotor, lowSpeed);
+  analogWrite(rightMotor, highSpeed);
+}
 
 // Swift/light turns.
-        void goLeft() {
-          analogWrite(leftMotor, highSpeed);
-          analogWrite(rightMotor, normalSpeed);
-        }
+void goLeft() {
+  analogWrite(leftMotor, highSpeed);
+  analogWrite(rightMotor, normalSpeed);
+}
 
-        void goRight() {
-          analogWrite(leftMotor, normalSpeed);
-          analogWrite(rightMotor, highSpeed);
-        }
+void goRight() {
+  analogWrite(leftMotor, normalSpeed);
+  analogWrite(rightMotor, highSpeed);
+}
 
-        void writeHistory(int left, int midleft, int mid, int midright, int right) {
-          history[0] = left;
-          history[1] = midleft;
-          history[2] = mid;
-          history[3] = midright;
-          history[4] = right;
-        }
+void writeHistory(int left, int midleft, int mid, int midright, int right) {
+  history[0] = left;
+  history[1] = midleft;
+  history[2] = mid;
+  history[3] = midright;
+  history[4] = right;
+}
