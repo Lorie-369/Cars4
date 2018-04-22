@@ -49,23 +49,24 @@ int intersection() {
 
 void loop() {
 
-  while(digitalRead(midSensor) == offTrack && blank() == 0) {
+  while(digitalRead(midSensor) == offTrack) {
 
-    if (digitalRead(midLeftSensor) == onTrack)
+    if (digitalRead(midLeftSensor))
       goRight();
 
-    else if (digitalRead(leftSensor) == onTrack)
+    else if (digitalRead(leftSensor))
       goFullRight();
 
-    else if (digitalRead(midRightSensor) == onTrack)
+    else if (digitalRead(midRightSensor))
       goLeft();
 
-    else if (digitalRead(rightSensor) == onTrack)
+    else if (digitalRead(rightSensor))
       goFullLeft();
 
   }
   
   goForward();
+
   // while(digitalRead(midSensor)) {
   //   while(intersection() == 0) {
   //     goForward();
