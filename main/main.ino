@@ -48,47 +48,62 @@ void loop() {
   // while (blank() == 1)
   //   goForward();
 
-  if (rMid == onTrack) {
+  if (rMid == onTrack &&
+    rLeft == offTrack &&
+    rRight == offTrack && 
+    rMidLeft == offTrack &&
+    rMidRight == offTrack) {
     while (digitalRead(midSensor) && blank() == 0)
       goForward();
-    goForward();
     rMid = 1;
   }
 
-  else if (rMidLeft == onTrack) {
+  else if (rMid == offTrack &&
+    rLeft == offTrack &&
+    rRight == offTrack && 
+    rMidLeft == onTrack &&
+    rMidRight == offTrack) {
     while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goRight();
     }
-    goRight();
 
     rMidRight = 1;
     rMid = 1;
   }
 
-  else if (rLeft == onTrack) {
+  else if (rMid == offTrack &&
+    rLeft == onTrack &&
+    rRight == offTrack && 
+    rMidLeft == offTrack &&
+    rMidRight == offTrack) {
     while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goFullRight();
     }
-    goFullRight();
 
     rLeft = 1;
     rMid = 1;
   }
 
-  else if (rMidRight == onTrack) {
+  else if (rMid == offTrack &&
+    rLeft == offTrack &&
+    rRight == offTrack && 
+    rMidLeft == offTrack &&
+    rMidRight == onTrack) {
     while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goLeft();
     }
-    goLeft();
     rMidRight = 1;
     rMid = 1;
   }
 
-  else if (rRight == onTrack) {
+  else if (rMid == offTrack &&
+    rLeft == offTrack &&
+    rRight == onTrack && 
+    rMidLeft == offTrack &&
+    rMidRight == offTrack) {
     while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goFullLeft();
     }
-    goFullLeft();
     rRight = 1;
     rMid = 1;
   }
