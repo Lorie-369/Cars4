@@ -38,6 +38,21 @@ int blank() {
     return 0;
 }
 
+int intersection() {
+  int rLeft     = digitalRead(leftSensor);
+  int rMid      = digitalRead(midSensor);
+  int rRight    = digitalRead(rightSensor);
+  int rMidLeft  = digitalRead(midLeftSensor);
+  int rMidRight = digitalRead(midRightSensor);
+
+  if (rMid      == onTrack &&
+      rMidLeft  == onTrack && 
+      rMidRight == onTrack)
+    return 1;
+  else
+    return 0;
+}
+
 void loop() {
   int rLeft     = digitalRead(leftSensor);
   int rMid      = digitalRead(midSensor);
@@ -48,21 +63,18 @@ void loop() {
   // while (blank() == 1)
   //   goForward();
 
-  if (rMid == onTrack &&
-    rLeft == offTrack &&
-    rRight == offTrack && 
-    rMidLeft == offTrack &&
-    rMidRight == offTrack) {
+  if (intersection() == 1) {
+    while(digitalRead(midSensor) && intersection() == 1)
+      goForward();
+  }
+
+  if (rMid == onTrack) {
     while (digitalRead(midSensor) && blank() == 0)
       goForward();
     rMid = 1;
   }
 
-  else if (rMid == offTrack &&
-    rLeft == offTrack &&
-    rRight == offTrack && 
-    rMidLeft == onTrack &&
-    rMidRight == offTrack) {
+  else if (rMidLeft == onTrack) {
     while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goRight();
     }
@@ -71,11 +83,7 @@ void loop() {
     rMid = 1;
   }
 
-  else if (rMid == offTrack &&
-    rLeft == onTrack &&
-    rRight == offTrack && 
-    rMidLeft == offTrack &&
-    rMidRight == offTrack) {
+  else if (rLeft == onTrack) {
     while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goFullRight();
     }
@@ -84,11 +92,7 @@ void loop() {
     rMid = 1;
   }
 
-  else if (rMid == offTrack &&
-    rLeft == offTrack &&
-    rRight == offTrack && 
-    rMidLeft == offTrack &&
-    rMidRight == onTrack) {
+  else if (rMidRight == onTrack) {
     while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goLeft();
     }
@@ -96,11 +100,7 @@ void loop() {
     rMid = 1;
   }
 
-  else if (rMid == offTrack &&
-    rLeft == offTrack &&
-    rRight == onTrack && 
-    rMidLeft == offTrack &&
-    rMidRight == offTrack) {
+  else if (rRight == onTrack) {
     while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goFullLeft();
     }
@@ -109,6 +109,10 @@ void loop() {
   }
 
   else {
+    if (blank() == 1) {
+      goForward();
+      delay(1000);
+    }
     Stop();
   }
 
@@ -121,7 +125,7 @@ void goForward() {
 }
 
 void Stop() {
-  if (history[2] == onTrack) {
+  if (history[2] == onTrack && blank() == 0) {
     delay(1000);
   }
 
