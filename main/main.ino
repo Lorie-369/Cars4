@@ -65,9 +65,14 @@ void loop() {
   // while (blank() == 1)
   //   goForward();
 
-  if (intersection() == 1) {
+  if (intersection() == 1 && history[2] == offTrack) {
     while(intersection() == 1)
       goForward();
+  }
+
+  if (blank() == 1) {
+    goForward();
+    delay(250);
   }
 
   if (rMid == onTrack) {
