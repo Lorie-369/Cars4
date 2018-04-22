@@ -111,10 +111,6 @@ void loop() {
   }
 
   else {
-    if (blank() == 1) {
-      goForward();
-      delay(1000);
-    }
     Stop();
   }
 
