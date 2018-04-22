@@ -66,7 +66,7 @@ void loop() {
   //   goForward();
 
   if (intersection() == 1) {
-    while(digitalRead(midSensor) && intersection() == 1)
+    while(intersection() == 1)
       goForward();
   }
 
