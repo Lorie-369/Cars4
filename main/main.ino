@@ -9,7 +9,7 @@ int rightSensor    = 8;
 
 // Adjust the speed according to the motor.
 int highSpeed   = 140;
-int normalSpeed = 100;
+int normalSpeed = 0;
 int lowSpeed    = 0;
 
 int onTrack  = 1;
@@ -59,7 +59,6 @@ void loop() {
       goRight();
     }
     rMidRight = 1;
-    goForward();
     rMid = 1;
   }
 
@@ -68,7 +67,6 @@ void loop() {
       goFullRight();
     }
     rLeft = 1;
-    goForward();
     rMid = 1;
   }
 
@@ -77,7 +75,6 @@ void loop() {
       goLeft();
     }
     rMidRight = 1;
-    goForward();
     rMid = 1;
   }
 
@@ -86,7 +83,6 @@ void loop() {
       goFullLeft();
     }
     rRight = 1;
-    goForward();
     rMid = 1;
   }
 
