@@ -41,19 +41,20 @@ int intersection() {
   int rMidLeft  = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  if ((rLeft + rMid + rRight + rMidLeft + rMidRight) / 5 >= 0.6)
+  if ((rLeft + rMid + rRight + rMidLeft + rMidRight) / 5 >= 0.8)
     return 1;
   else
     return 0;
 }
 
 void loop() {
-  while (digitalRead(midSensor) == onTrack && digitalRead(rightSensor) == offTrack)
+  while (digitalRead(midSensor) && 
+    (digitalRead(rightSensor) == offTrack || digitalRead(leftSensor) == offTrack))
     goForward();
 
   // offTrack
   if (intersection()) {
-    while (digitalRead(rightSensor) == onTrack || digitalRead(leftSensor) == onTrack)
+    while (digitalRead(rightSensor) || digitalRead(leftSensor))
       goForward();
   }
 
