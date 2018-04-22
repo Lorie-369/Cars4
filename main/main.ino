@@ -103,9 +103,11 @@ void goForward() {
 }
 
 void Stop() {
-  if (history[2] == onTrack || blank() == 1) 
+  if (history[2] == onTrack || blank() == 1) {
     goForward();
     delay(1000);
+  }
+  
   else
     // Adjust the delay, عشان عامل مشاكل. 
     delay(25);
