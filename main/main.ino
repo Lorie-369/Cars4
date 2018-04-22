@@ -45,7 +45,9 @@ int intersection() {
   int rMidLeft  = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  if (rMid      == onTrack &&
+  if (rLeft     == onTrack && 
+      rMid      == onTrack &&
+      rRight    == onTrack &&
       rMidLeft  == onTrack && 
       rMidRight == onTrack)
     return 1;
