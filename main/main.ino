@@ -49,7 +49,7 @@ void loop() {
   //   goForward();
 
   if (rMid == onTrack) {
-    while (digitalRead(midSensor))
+    while (digitalRead(midSensor) && blank() == 0)
       goForward();
     rMid = 1;
   }
