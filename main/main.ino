@@ -51,6 +51,7 @@ void loop() {
   if (rMid == onTrack) {
     while (digitalRead(midSensor) && blank() == 0)
       goForward();
+    goForward();
     rMid = 1;
   }
 
@@ -58,6 +59,8 @@ void loop() {
     while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goRight();
     }
+    goRight();
+
     rMidRight = 1;
     rMid = 1;
   }
@@ -66,6 +69,8 @@ void loop() {
     while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goFullRight();
     }
+    goFullRight();
+
     rLeft = 1;
     rMid = 1;
   }
@@ -74,6 +79,7 @@ void loop() {
     while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goLeft();
     }
+    goLeft();
     rMidRight = 1;
     rMid = 1;
   }
@@ -82,6 +88,7 @@ void loop() {
     while (digitalRead(midSensor) == offTrack && blank() == 0) {
       goFullLeft();
     }
+    goFullLeft();
     rRight = 1;
     rMid = 1;
   }
