@@ -48,43 +48,7 @@ int intersection() {
 }
 
 void loop() {
-  while (digitalRead(midSensor) && 
-    (digitalRead(rightSensor) == offTrack || digitalRead(leftSensor) == offTrack))
-    goForward();
 
-  // offTrack
-  if (intersection()) {
-    while (digitalRead(rightSensor) || digitalRead(leftSensor))
-      goForward();
-  }
-
-  else if (blank() == 0) {
-
-    if (digitalRead(leftSensor))
-      while (digitalRead(midSensor) == offTrack)
-        goFullLeft();
-    
-    if (digitalRead(rightSensor))
-      while (digitalRead(midSensor) == offTrack)
-        goFullRight();
-
-    if (digitalRead(midLeftSensor))
-      while (digitalRead(midSensor) == offTrack)
-        goRight();
-
-    if (digitalRead(midRightSensor))
-      while (digitalRead(midSensor) == offTrack)
-        goLeft();
-    
-  } else if (blank() == 1) {
-    goForward();
-    delay(250);
-    analogWrite(leftMotor, 0);
-    analogWrite(rightMotor, 0);
-  } else {
-    analogWrite(leftMotor, 0);
-    analogWrite(rightMotor, 0);
-  }
 }
 
 void goForward() {
@@ -93,12 +57,11 @@ void goForward() {
 }
 
 void Stop() {
-  if (history[2] == onTrack) {
-    delay(1000);
-  }
-
-  else
-    delay(25);
+  // if (history[2] == onTrack) {
+  //   delay(1000);
+  // }
+  // else
+  //   delay(25);
 
   analogWrite(leftMotor, 0);
   analogWrite(rightMotor, 0);
