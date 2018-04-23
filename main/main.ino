@@ -29,8 +29,9 @@ void loop() {
   int rMidRight = digitalRead(midRightSensor);
 
   if (rMid == onTrack) {
-      while (digitalRead(midSensor))
-    goForward();
+    while (!digitalRead(midSensor)) {
+      goForward();
+    }
     rMid = 1;
   }
 
