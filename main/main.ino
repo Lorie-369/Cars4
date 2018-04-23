@@ -7,9 +7,8 @@ int rightSensor     = 8;
 int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
-// Adjust the speed according to the motor.
-int highSpeed = 140;
-int normalSpeed  = 100;
+int highSpeed = 120;
+int normalSpeed  = 0;
 int lowSpeed  = 0;
 
 int onTrack = 1;
@@ -17,79 +16,66 @@ int offTrack = 0;
 
 int history[5] = {0, 0, 0, 0, 0};
 
+// White 0
+// Black 1
+
 void setup() {
   Serial.begin(9600);
 }
 
-int blank() {
+bool blank() {
   int rLeft = digitalRead(leftSensor);
   int rMid = digitalRead(midSensor);
   int rRight = digitalRead(rightSensor);
   int rMidLeft = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  if (rLeft     == offTrack && 
-      rMid      == offTrack &&
-      rRight    == offTrack &&
-      rMidLeft  == offTrack && 
-      rMidRight == offTrack)
+  if (rLeft == offTrack &&
+    rMid == offTrack &&
+    rRight == offTrack &&
+    rMidLeft == offTrack &&
+    rMidRight == offTrack)
+    return 1;
+  else 
+    return 0;
+}
+
+bool moreThanOne() {
+  int rLeft = digitalRead(leftSensor);
+  int rMid = digitalRead(midSensor);
+  int rRight = digitalRead(rightSensor);
+  int rMidLeft = digitalRead(midLeftSensor);
+  int rMidRight = digitalRead(midRightSensor);
+
+  if ((rLeft + rMid + rRight + rMidLeft + rMidRight) / 5 > 0.2)
     return 1;
   else
     return 0;
 }
 
 void loop() {
-  int rLeft = digitalRead(leftSensor);
-  int rMid = digitalRead(midSensor);
-  int rRight = digitalRead(rightSensor);
-  int rMidLeft = digitalRead(midLeftSensor);
-  int rMidRight = digitalRead(midRightSensor);
 
-  while (blank() == 1)
-    goForward();
-
-  if (rMid == onTrack) {
-    while (digitalRead(midSensor))
+  if (digitalRead(midSensor) == onTrack) {
+    while (digitalRead(midSensor) == onTrack)
       goForward();
-  }
 
-  else if (rMidLeft == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0) {
+  } else if (digitalRead(midLeftSensor) == onTrack) {
+    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0)
       goRight();
-    }
-    rMidRight = 1;
-    goForward();
-  }
 
-  else if (rLeft == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0) {
+  } else if (digitalRead(leftSensor) == onTrack) {
+    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0)
       goFullRight();
-    }
-    rLeft = 1;
-    goForward();
-  }
 
-  else if (rMidRight == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0) {
+  } else if (digitalRead(midRightSensor) == onTrack) {
+    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0)
       goLeft();
-    }
-    rMidRight = 1;
-    goForward();
-  }
 
-  else if (rRight == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0) {
+  } else if (digitalRead(rightSensor) == onTrack) {
+    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0)
       goFullLeft();
-    }
-    rRight = 1;
-    goForward();
   }
-
-  else {
-    Stop();
-  }
-
-  writeHistory(rLeft, rMidLeft, 1, rMidRight, rRight);
+  Stop();
 }
 
 void goForward() {
@@ -98,12 +84,6 @@ void goForward() {
 }
 
 void Stop() {
-  if (history[2] == onTrack) 
-    delay(1000);
-  else
-    // Adjust the delay, عشان عامل مشاكل. 
-    delay(25);
-
   analogWrite(leftMotor, 0);
   analogWrite(rightMotor, 0);
 }
@@ -132,11 +112,9 @@ void goRight() {
 
 // TODO:
 // Expand the history capability to track all the sensors.
-void writeHistory(int left, int midleft, int mid, int midright, int right) {
+void writeHistory(int left, int mid, int right) {
   history[0] = left;
-  history[1] = midleft;
-  history[2] = mid;
-  history[3] = midright;
-  history[4] = right;
+  history[1] = mid;
+  history[2] = right;
 }
 
