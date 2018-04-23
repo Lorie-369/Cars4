@@ -75,6 +75,7 @@ void loop() {
     while (digitalRead(midRightSensor) == offTrack && blank() == 0 && moreThanOne() == 0)
       goFullLeft();
   }
+
   Stop();
 }
 
