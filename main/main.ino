@@ -64,7 +64,7 @@ void loop() {
       goRight();
 
   } else if (digitalRead(leftSensor) == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0)
+    while (digitalRead(midLeftSensor) == offTrack && blank() == 0 && moreThanOne() == 0)
       goFullRight();
 
   } else if (digitalRead(midRightSensor) == onTrack) {
@@ -72,7 +72,7 @@ void loop() {
       goLeft();
 
   } else if (digitalRead(rightSensor) == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0)
+    while (digitalRead(midRightSensor) == offTrack && blank() == 0 && moreThanOne() == 0)
       goFullLeft();
   }
   Stop();
@@ -84,6 +84,7 @@ void goForward() {
 }
 
 void Stop() {
+  delay(30);
   analogWrite(leftMotor, 0);
   analogWrite(rightMotor, 0);
 }
