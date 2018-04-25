@@ -7,7 +7,7 @@ int rightSensor     = 8;
 int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
-int highSpeed = 120;
+int highSpeed = 200;
 int normalSpeed  = 0;
 int lowSpeed  = 0;
 
