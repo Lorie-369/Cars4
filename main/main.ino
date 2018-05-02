@@ -7,7 +7,7 @@ int rightSensor     = 8;
 int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
-int highSpeed = 255.;
+int highSpeed = 255;
 int normalSpeed  = 0;
 int lowSpeed  = 0;
 
@@ -74,30 +74,14 @@ void loop() {
       Serial.println("Going Forward.");
       goForward();
     }
-  }
-
-  else if (digitalRead(midLeftSensor) == onTrack) {
+  } else if (digitalRead(midLeftSensor) == onTrack || digitalRead(leftSensor) == onTrack) {
     while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0) {
       goRight();
       Serial.println("Going Right");
       Serial.println("midSensor offTrack");
     }
 
-  } else if (digitalRead(leftSensor) == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0) {
-      goRight();
-      Serial.println("Going Right");
-      Serial.println("midSensor offTrack");
-    }
-
-  } else if (digitalRead(midRightSensor) == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0) {
-      goLeft();
-      Serial.println("Going Left");
-      Serial.println("midSensor offTrack");
-    }
-
-  } else if (digitalRead(rightSensor) == onTrack) {
+  } else if (digitalRead(midRightSensor) == onTrack || digitalRead(rightSensor) == onTrack) {
     while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0) {
       goLeft();
       Serial.println("Going Left");
