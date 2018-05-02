@@ -69,7 +69,7 @@ void loop() {
   int rMidLeft = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  if (rMid) {
+  if (rMid == onTrack) {
     while (digitalRead(midSensor)) {
       Serial.println("Going Forward.");
       goForward();
