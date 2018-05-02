@@ -140,7 +140,7 @@ void Stop() {
       goForward();
     }
   }
-  delay(30);
+  delay(80);
   analogWrite(leftMotor, 0);
   analogWrite(rightMotor, 0);
 }
