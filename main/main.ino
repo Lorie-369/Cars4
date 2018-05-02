@@ -69,19 +69,19 @@ void loop() {
   int rMidLeft = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  if (digitalRead(midSensor)) {
+  if (rMid) {
     while (digitalRead(midSensor)) {
       Serial.println("Going Forward.");
       goForward();
     }
-  } else if (digitalRead(midLeftSensor) == onTrack || digitalRead(leftSensor) == onTrack) {
+  } else if (rMidLeft == onTrack || rLeft == onTrack) {
     while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0) {
       goRight();
       Serial.println("Going Right");
       Serial.println("midSensor offTrack");
     }
 
-  } else if (digitalRead(midRightSensor) == onTrack || digitalRead(rightSensor) == onTrack) {
+  } else if (rMidRight == onTrack || rRight == onTrack) {
     while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0) {
       goLeft();
       Serial.println("Going Left");
