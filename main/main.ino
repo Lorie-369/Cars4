@@ -7,7 +7,7 @@ int rightSensor     = 8;
 int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
-int highSpeed = 200;
+int highSpeed = 255;
 int normalSpeed  = 0;
 int lowSpeed  = 0;
 
@@ -108,7 +108,7 @@ void loop() {
   }
 
   writeHistory(rLeft, rMidLeft, rMid, rMidRight, rRight);
-  
+
   delay(10);
 }
 
@@ -117,13 +117,28 @@ void goForward() {
   analogWrite(rightMotor, highSpeed);
 }
 
+int anyone() {
+  int rLeft = digitalRead(leftSensor);
+  int rMid = digitalRead(midSensor);
+  int rRight = digitalRead(rightSensor);
+  int rMidLeft = digitalRead(midLeftSensor);
+  int rMidRight = digitalRead(midRightSensor);
+
+  if (rLeft || rMid || rRight || rMidLeft || rMidRight) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
 void Stop() {
   Serial.println("Stopping");
   if (history[2] == onTrack)
   {
-    Serial.println("Delay 1000");
-    goForward();
-    delay(1000);
+    while (anyone() == 0) {
+      Serial.println("Cut in the track");
+      goForward();
+    }
   }
   delay(30);
   analogWrite(leftMotor, 0);
