@@ -77,28 +77,28 @@ void loop() {
   }
 
   else if (digitalRead(midLeftSensor) == onTrack) {
-    while (digitalRead(midSensor) == offTrack && moreThanOne() == 0) {
+    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0) {
       goRight();
       Serial.println("Going Right");
       Serial.println("midSensor offTrack");
     }
 
   } else if (digitalRead(leftSensor) == onTrack) {
-    while (digitalRead(midSensor) == offTrack && moreThanOne() == 0) {
+    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0) {
       goRight();
       Serial.println("Going Right");
       Serial.println("midSensor offTrack");
     }
 
   } else if (digitalRead(midRightSensor) == onTrack) {
-    while (digitalRead(midSensor) == offTrack && moreThanOne() == 0) {
+    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0) {
       goLeft();
       Serial.println("Going Left");
       Serial.println("midSensor offTrack");
     }
 
   } else if (digitalRead(rightSensor) == onTrack) {
-    while (digitalRead(midSensor) == offTrack && moreThanOne() == 0) {
+    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0) {
       goLeft();
       Serial.println("Going Left");
       Serial.println("midSensor offTrack");
