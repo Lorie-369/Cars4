@@ -20,31 +20,22 @@ void setup() {
   Serial.begin(9600);
 }
 
-// Check for blank spot
-
 bool blank() {
-
-  // Read the sensors' data
-
   int rLeft = digitalRead(leftSensor);
   int rMid = digitalRead(midSensor);
   int rRight = digitalRead(rightSensor);
   int rMidLeft = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  // If they're all off the track, return 1 (true), else, return 0 (false).
-
-  if (rLeft == offTrack &&
-    rMid == offTrack &&
-    rRight == offTrack &&
-    rMidLeft == offTrack &&
+  if (rLeft   == offTrack &&
+    rMid      == offTrack &&
+    rRight    == offTrack &&
+    rMidLeft  == offTrack &&
     rMidRight == offTrack)
     return 1;
   else 
     return 0;
 }
-
-// Check for more than one sensor on track
 
 bool moreThanOne() {
   int rLeft = digitalRead(leftSensor);
@@ -52,8 +43,6 @@ bool moreThanOne() {
   int rRight = digitalRead(rightSensor);
   int rMidLeft = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
-
-  // At least one of five, 1/5 = 0.2, return 1 (true) if true, else return 0 (false)
 
   if ((rLeft + rMid + rRight + rMidLeft + rMidRight) / 5 > 0.2)
     return 1;
@@ -69,26 +58,29 @@ void loop() {
   int rMidLeft = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  if (rMid == onTrack) {
-    while (digitalRead(midSensor)) {
-      Serial.println("Going Forward.");
-      goForward();
-    }
-  } else if (rMidLeft == onTrack || rLeft == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0) {
-      goRight();
-      Serial.println("Going Right");
-      Serial.println("midSensor offTrack");
+  if (rLeft + rMid + rRight + rMidRight + rMidLeft >= 3) {
+    goForward();
+    delay(100);
+    if (blank()) {
+      Serial.println("End.");
+      while (1);
     }
 
+  } else if (rMid == onTrack) {
+    Serial.println("Going Forward.");
+    goForward();
+
+  } else if (rMidLeft == onTrack || rLeft == onTrack) {
+      goRight();
+      Serial.println("Going Right");
+
   } else if (rMidRight == onTrack || rRight == onTrack) {
-    while (digitalRead(midSensor) == offTrack && blank() == 0 && moreThanOne() == 0) {
       goLeft();
       Serial.println("Going Left");
-      Serial.println("midSensor offTrack");
-    }
+
   } else {
-    Stop();
+    Serial.println("Going Slow");
+    goSlow();
   }
 
   writeHistory(rLeft, rMidLeft, rMid, rMidRight, rRight);
@@ -99,6 +91,11 @@ void loop() {
 void goForward() {
   analogWrite(leftMotor, highSpeed);
   analogWrite(rightMotor, highSpeed);
+}
+
+void goSlow() {
+  analogWrite(leftMotor, highSpeed / 2);
+  analogWrite(rightMotor, highSpeed / 2);
 }
 
 int anyone() {
