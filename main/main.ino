@@ -7,7 +7,7 @@ int rightSensor     = 8;
 int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
-int highSpeed = 255;
+int highSpeed = 200;
 int normalSpeed  = 0;
 int lowSpeed  = 0;
 
@@ -61,9 +61,13 @@ void loop() {
   if (rLeft + rMid + rRight + rMidRight + rMidLeft >= 3) {
     goForward();
     delay(100);
+    
     if (blank()) {
+      analogWrite(leftMotor, 0);
+      analogWrite(rightMotor, 0);
       Serial.println("End.");
-      while (1);
+      while (analogRead(A0) > 70);
+      Serial.println("Continue.");
     }
 
   } else if (rMid == onTrack) {
