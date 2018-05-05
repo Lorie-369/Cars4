@@ -8,13 +8,11 @@ int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
 int highSpeed = 200;
-int normalSpeed  = 0;
+int slowSpeed  = highSpeed * .60; // 60% the highSpeed.
 int lowSpeed  = 0;
 
 int onTrack = 1;
 int offTrack = 0;
-
-int history[5] = {0, 0, 0, 0, 0};
 
 void setup() {
   Serial.begin(9600);
@@ -37,19 +35,6 @@ bool blank() {
     return 0;
 }
 
-bool moreThanOne() {
-  int rLeft = digitalRead(leftSensor);
-  int rMid = digitalRead(midSensor);
-  int rRight = digitalRead(rightSensor);
-  int rMidLeft = digitalRead(midLeftSensor);
-  int rMidRight = digitalRead(midRightSensor);
-
-  if ((rLeft + rMid + rRight + rMidLeft + rMidRight) / 5 > 0.2)
-    return 1;
-  else
-    return 0;
-}
-
 void loop() {
   
   int rLeft = digitalRead(leftSensor);
@@ -66,6 +51,7 @@ void loop() {
       analogWrite(leftMotor, 0);
       analogWrite(rightMotor, 0);
       Serial.println("End.");
+
       while (analogRead(A0) > 70);
       Serial.println("Continue.");
     }
@@ -87,8 +73,7 @@ void loop() {
     goSlow();
   }
 
-  writeHistory(rLeft, rMidLeft, rMid, rMidRight, rRight);
-
+  // Refresh Rate.
   delay(10);
 }
 
@@ -98,52 +83,16 @@ void goForward() {
 }
 
 void goSlow() {
-  analogWrite(leftMotor, highSpeed / 2);
-  analogWrite(rightMotor, highSpeed / 2);
-}
-
-int anyone() {
-  int rLeft = digitalRead(leftSensor);
-  int rMid = digitalRead(midSensor);
-  int rRight = digitalRead(rightSensor);
-  int rMidLeft = digitalRead(midLeftSensor);
-  int rMidRight = digitalRead(midRightSensor);
-
-  if (rLeft || rMid || rRight || rMidLeft || rMidRight) {
-    return 1;
-  } else {
-    return 0;
-  }
-}
-
-void Stop() {
-  Serial.println("Stopping");
-  if (history[2] == onTrack)
-  {
-    while (anyone() == 0) {
-      Serial.println("Cut in the track");
-      goForward();
-    }
-  }
-  delay(80);
-  analogWrite(leftMotor, 0);
-  analogWrite(rightMotor, 0);
+  analogWrite(leftMotor, slowSpeed);
+  analogWrite(rightMotor, slowSpeed);
 }
 
 void goLeft() {
   analogWrite(leftMotor, highSpeed);
-  analogWrite(rightMotor, normalSpeed);
+  analogWrite(rightMotor, lowSpeed);
 }
 
 void goRight() {
-  analogWrite(leftMotor, normalSpeed);
+  analogWrite(leftMotor, lowSpeed);
   analogWrite(rightMotor, highSpeed);
-}
-
-void writeHistory(int left, int midleft, int mid, int midright, int right) {
-  history[0] = left;
-  history[1] = midleft;
-  history[2] = mid;
-  history[3] = midright;
-  history[4] = right;
 }
