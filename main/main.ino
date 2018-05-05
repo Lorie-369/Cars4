@@ -60,8 +60,8 @@ void loop() {
 
   if (rLeft + rMid + rRight + rMidRight + rMidLeft >= 3) {
     goForward();
-    delay(100);
-    
+    delay(200);
+
     if (blank()) {
       analogWrite(leftMotor, 0);
       analogWrite(rightMotor, 0);
