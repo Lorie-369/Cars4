@@ -22,14 +22,10 @@ bool blank() {
   int rLeft = digitalRead(leftSensor);
   int rMid = digitalRead(midSensor);
   int rRight = digitalRead(rightSensor);
-  int rMidLeft = digitalRead(midLeftSensor);
-  int rMidRight = digitalRead(midRightSensor);
 
   if (rLeft   == offTrack &&
     rMid      == offTrack &&
-    rRight    == offTrack &&
-    rMidLeft  == offTrack &&
-    rMidRight == offTrack)
+    rRight    == offTrack)
     return 1;
   else 
     return 0;
