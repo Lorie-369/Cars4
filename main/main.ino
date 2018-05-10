@@ -8,7 +8,7 @@ int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
 int highSpeed = 120;
-int slowSpeed  = highSpeed * .60; // 60% the highSpeed.
+int slowSpeed  = highSpeed * .80; // 80% the highSpeed.
 int lowSpeed  = 0;
 
 int onTrack = 1;
