@@ -7,7 +7,7 @@ int rightSensor     = 8;
 int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
-int highSpeed = 200;
+int highSpeed = 120;
 int slowSpeed  = highSpeed * .60; // 60% the highSpeed.
 int lowSpeed  = 0;
 
@@ -43,7 +43,7 @@ void loop() {
   int rMidLeft = digitalRead(midLeftSensor);
   int rMidRight = digitalRead(midRightSensor);
 
-  if (rLeft + rMid + rRight + rMidRight + rMidLeft >= 3) {
+  if ((rLeft + rMid + rRight + rMidRight + rMidLeft) >= 3) {
     goForward();
     delay(200);
 
@@ -53,6 +53,7 @@ void loop() {
       Serial.println("End.");
 
       while (analogRead(A0) > 70);
+
       Serial.println("Continue.");
     }
 
@@ -61,12 +62,20 @@ void loop() {
     goForward();
 
   } else if (rMidLeft == onTrack || rLeft == onTrack) {
-      goRight();
-      Serial.println("Going Right");
+
+    int _midleft = digitalRead(midLeftSensor);
+    int _midright = digitalRead(midRightSensor);
+    int _mid = digitalRead(midSensor);
+    
+    Serial.print(_midleft); Serial.print(_mid); Serial.print(_midright);
+    Serial.print("\n");
+
+    goRight();
+    Serial.println("Going Right");
 
   } else if (rMidRight == onTrack || rRight == onTrack) {
-      goLeft();
-      Serial.println("Going Left");
+    goLeft();
+    Serial.println("Going Left");
 
   } else {
     Serial.println("Going Slow");
