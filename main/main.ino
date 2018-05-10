@@ -44,8 +44,10 @@ void loop() {
   int rMidRight = digitalRead(midRightSensor);
 
   if ((rLeft + rMid + rRight + rMidRight + rMidLeft) >= 3) {
+    Serial.println("Intersection, Going Forward for 200ms delay.");
     goForward();
     delay(200);
+    Serial.println("Intersection, delay end.");
 
     if (blank()) {
       analogWrite(leftMotor, 0);
@@ -66,7 +68,7 @@ void loop() {
     int _midleft = digitalRead(midLeftSensor);
     int _midright = digitalRead(midRightSensor);
     int _mid = digitalRead(midSensor);
-    
+
     Serial.print(_midleft); Serial.print(_mid); Serial.print(_midright);
     Serial.print("\n");
 
