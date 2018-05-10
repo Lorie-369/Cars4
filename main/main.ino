@@ -40,10 +40,8 @@ void loop() {
   int rLeft = digitalRead(leftSensor);
   int rMid = digitalRead(midSensor);
   int rRight = digitalRead(rightSensor);
-  int rMidLeft = digitalRead(midLeftSensor);
-  int rMidRight = digitalRead(midRightSensor);
 
-  if ((rLeft + rMid + rRight + rMidRight + rMidLeft) >= 3) {
+  if ((rLeft + rMid + rRight) >= 2) {
     Serial.println("Intersection, Going Forward for 200ms delay.");
     goForward();
     delay(200);
@@ -63,19 +61,11 @@ void loop() {
     Serial.println("Going Forward.");
     goForward();
 
-  } else if (rMidLeft == onTrack || rLeft == onTrack) {
-
-    int _midleft = digitalRead(midLeftSensor);
-    int _midright = digitalRead(midRightSensor);
-    int _mid = digitalRead(midSensor);
-
-    Serial.print(_midleft); Serial.print(_mid); Serial.print(_midright);
-    Serial.print("\n");
-
+  } else if (rLeft == onTrack) {
     goRight();
     Serial.println("Going Right");
 
-  } else if (rMidRight == onTrack || rRight == onTrack) {
+  } else if (rRight == onTrack) {
     goLeft();
     Serial.println("Going Left");
 
