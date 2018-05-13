@@ -5,7 +5,10 @@ int leftSensor      = 17;
 int midSensor       = 16;
 int rightSensor     = 14;
 int midLeftSensor   = 15;
-int midRightSensor  = 14;
+int midRightSensor  = 18;
+
+// <<<<< Edit this one
+int photoRes = A0;
 
 int highSpeed = 200;
 int slowSpeed  = highSpeed * .60; // 60% the highSpeed.
@@ -44,15 +47,17 @@ void loop() {
   int rMidRight = digitalRead(midRightSensor);
 
   if (rLeft + rMid + rRight + rMidRight + rMidLeft >= 3) {
+    Serial.println("Start of delay");
     goForward();
     delay(200);
-
+    Serial.println("End of delay");
+  
     if (blank()) {
       analogWrite(leftMotor, 0);
       analogWrite(rightMotor, 0);
       Serial.println("End.");
 
-      while (analogRead(A0) > 70);
+      while (analogRead(photoRes) > 70);
       Serial.println("Continue.");
     }
 
