@@ -9,7 +9,7 @@ The robot uses a photoresistor to continue running after it stops due to the sto
 ## Hardware:
 
 - Arduino Uno.
-- IR Sensor Modules (x5): (Link)[http://ram-e-shop.com/oscmax/catalog/product_info.php?products_id=3213].
+- IR Sensor Modules (x5): [Link](http://ram-e-shop.com/oscmax/catalog/product_info.php?products_id=3213).
 - Two motors and Two Wheels (FWD).
 - 9V Battery for the Arduino, 12V or more for both of the motors. UltraFire Li-ion and Wild Scorpion Li-Po batteries were used.
 - Photoresistor.
