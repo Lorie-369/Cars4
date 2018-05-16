@@ -27,7 +27,7 @@ int photoRes = A0;
 int highSpeed = 200;
 
 // A slow speed for cuts in the track
-int slowSpeed  = highSpeed * .60; // 60% the highSpeed.
+int slowSpeed  = highSpeed * .60; // 60% the highSpeed. (Adjustable)
 
 // An optional low speed, for turning right or left.
 int lowSpeed  = 0;
