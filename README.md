@@ -13,4 +13,4 @@ The robot uses a photoresistor to continue running after it stops due to the sto
 - Two motors and Two Wheels (FWD).
 - 9V Battery for the Arduino, 12V or more for both of the motors. UltraFire Li-ion and Wild Scorpion Li-Po batteries were used.
 - Photoresistor.
-- H-Bridge [Link](https://howtomechatronics.com/tutorials/arduino/arduino-dc-motor-control-tutorial-l298n-pwm-h-bridge/).
+- H-Bridge: [Link](https://howtomechatronics.com/tutorials/arduino/arduino-dc-motor-control-tutorial-l298n-pwm-h-bridge/).
