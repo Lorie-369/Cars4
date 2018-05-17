@@ -10,7 +10,7 @@ int rightMotor  = 3;
 
 // *-- Sensors --*
 // You can read the output as digital or analog for advanced purposes.
-// Digital
+// Digital pins:
 int leftSensor      = 10;
 int midSensor       = 9;
 int rightSensor     = 8;
@@ -18,9 +18,9 @@ int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
 // A Photoresistor is used to continue the run after stopping.
+// Edit the pin number to fit your connections.
 int photoRes = A0;
 
-// *-- Speed levels --*
 // The normal running speed
 int highSpeed = 200;
 
