@@ -17,13 +17,6 @@ int rightSensor     = 8;
 int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
-// Analog
-// int leftSensor      = 17;
-// int midSensor       = 16;
-// int rightSensor     = 14;
-// int midLeftSensor   = 15;
-// int midRightSensor  = 18;
-
 // A Photoresistor is used to continue the run after stopping.
 int photoRes = A0;
 
