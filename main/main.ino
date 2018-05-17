@@ -96,8 +96,7 @@ void loop() {
     }
 
     // The basic bang-bang method.
-    // The midLeft and midRight sensors are used to increase the accuracy
-    // of the run.
+    // The midLeft and midRight sensors are used to increase the accuracy of the run.
     else if (rMid == onTrack) {
         goForward();
         Serial.println("Going Forward.");
