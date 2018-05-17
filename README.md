@@ -12,5 +12,5 @@ The robot uses a photoresistor to continue running after it stops due to the sto
 - IR Sensor Modules (x5): [Link](http://ram-e-shop.com/oscmax/catalog/product_info.php?products_id=3213).
 - Two motors and Two Wheels (FWD).
 - 9V Battery for the Arduino, 12V or more for both of the motors. UltraFire Li-ion and Wild Scorpion Li-Po batteries were used.
-- Photoresistor.
+- [Photoresistor](https://www.arduino.cc/en/uploads/Tutorial/PhotoCellA0.png).
 - H-Bridge: [Link](https://howtomechatronics.com/tutorials/arduino/arduino-dc-motor-control-tutorial-l298n-pwm-h-bridge/).
