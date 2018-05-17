@@ -99,8 +99,8 @@ void loop() {
     // The midLeft and midRight sensors are used to increase the accuracy
     // of the run.
     else if (rMid == onTrack) {
-        Serial.println("Going Forward.");
         goForward();
+        Serial.println("Going Forward.");
 
     } else if (rMidLeft == onTrack || rLeft == onTrack) {
         goRight();
@@ -111,24 +111,27 @@ void loop() {
         Serial.println("Going Left");
 
     } else {
-        Serial.println("Going Slow");
         goSlow();
+        Serial.println("Going Slow");
     }
 
     // Refresh Rate. (CAN BE EDITED OR REMOVED)
     delay(10);
 }
 
+// Run with highSpeed
 void goForward() {
     analogWrite(leftMotor, highSpeed);
     analogWrite(rightMotor, highSpeed);
 }
 
+// Run with slowSpeed
 void goSlow() {
     analogWrite(leftMotor, slowSpeed);
     analogWrite(rightMotor, slowSpeed);
 }
 
+// Turn with highSpeed & lowSpeed
 void goLeft() {
     analogWrite(leftMotor, highSpeed);
     analogWrite(rightMotor, lowSpeed);
