@@ -29,13 +29,13 @@ int photoRes = A0;
 int highSpeed = 200;
 
 // A slow speed for cuts in the track
-int slowSpeed  = highSpeed * .60; // 60% the highSpeed. (Adjust it)
+int slowSpeed = highSpeed * .60; // 60% the highSpeed. (Adjust it)
 
 // An optional low speed, for turning right and left.
 int lowSpeed  = 0;
 
 // Sensor's digital output, 1 for blacks, 0 for whites.
-int onTrack = 1;
+int onTrack  = 1;
 int offTrack = 0;
 
 void setup() {
@@ -92,7 +92,10 @@ void loop() {
             analogWrite(rightMotor, 0);
             Serial.println("End.");
 
-            // Just touch the photoresistor to continue the run.
+            // Just touch the photoresistor to decrease its resistance
+            // and break out of the while loop and continue the run.
+            //
+            // Adjust this number according to the resistance used.
             while (analogRead(photoRes) > 70);
 
             Serial.println("Continue.");
