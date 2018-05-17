@@ -21,11 +21,15 @@ int midRightSensor  = 11;
 // Edit the pin number to fit your connections.
 int photoRes = A0;
 
-// The normal running speed
+// The normal running speed, adjust it according to the
+// battery power, the track, the car size, and its weight.
+//
+// 200 may be too fast.
+// Analog Range: 0 - 255 --> 0 volt - Motors given voltage.
 int highSpeed = 200;
 
 // A slow speed for cuts in the track
-int slowSpeed  = highSpeed * .60; // 60% the highSpeed. (Adjustable)
+int slowSpeed  = highSpeed * .60; // 60% the highSpeed. (Adjust it)
 
 // An optional low speed, for turning right and left.
 int lowSpeed  = 0;
