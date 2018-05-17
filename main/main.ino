@@ -1,9 +1,14 @@
-// Motors, forward only.
-// Backward pins can be added.
+/*
+    Author:  Amr Essam
+    Project: Cars 4 – Arduino Line Follower Robot.
+*/
+
+// *-- Motors --*
+// Working for forward only, backward pins can be added.
 int leftMotor   = 5;
 int rightMotor  = 3;
 
-// Sensors
+// *-- Sensors --*
 // You can read the output as digital or analog for advanced purposes.
 // Digital
 int leftSensor      = 10;
@@ -12,24 +17,24 @@ int rightSensor     = 8;
 int midLeftSensor   = 12;
 int midRightSensor  = 11;
 
-/* Analog
-int leftSensor      = 17;
-int midSensor       = 16;
-int rightSensor     = 14;
-int midLeftSensor   = 15;
-int midRightSensor  = 18;
-*/
+// Analog
+// int leftSensor      = 17;
+// int midSensor       = 16;
+// int rightSensor     = 14;
+// int midLeftSensor   = 15;
+// int midRightSensor  = 18;
 
 // A Photoresistor is used to continue the run after stopping.
 int photoRes = A0;
 
+// *-- Speed levels --*
 // The normal running speed
 int highSpeed = 200;
 
 // A slow speed for cuts in the track
 int slowSpeed  = highSpeed * .60; // 60% the highSpeed. (Adjustable)
 
-// An optional low speed, for turning right or left.
+// An optional low speed, for turning right and left.
 int lowSpeed  = 0;
 
 // Sensor's digital output, 1 for blacks, 0 for whites.
@@ -37,13 +42,18 @@ int onTrack = 1;
 int offTrack = 0;
 
 void setup() {
+    // Don't forget to use the serial monitor while debugging your code.
+    // Mostly all of the movements are printed to the serial, in
+    // case you wanted to track the robot's movements.
     Serial.begin(9600);
 }
 
-// The function checks instantly if the robot is on a blank spot.
-// Which means all the sensors are reading white (0).
-//
-// The function returns 1 if true, and 0 if false.
+/*
+   The function checks instantly if the robot is on a blank spot.
+   Which means all the sensors are reading white (0).
+  
+   The function returns 1 if true, and 0 if false.
+*/
 bool blank() {
     int rLeft = digitalRead(leftSensor);
     int rMid = digitalRead(midSensor);
@@ -68,10 +78,12 @@ void loop() {
     int rRight    = digitalRead(rightSensor);
     int rMidLeft  = digitalRead(midLeftSensor);
     int rMidRight = digitalRead(midRightSensor);
-
-    // SPECIAL CASE AND CAN BE REMOVED.
-    // If more than 2 sensors are detecting the black line, suppose it's on
-    // an intersection, and move forward till a blank spot is detected and stop.
+    
+    /*
+       *-- SPECIAL CASE AND CAN BE REMOVED. --*
+       If more than 2 sensors are detecting the black line, suppose it's on
+       an intersection, and move forward till a blank spot is detected and stop.
+    */
     if (rLeft + rMid + rRight + rMidRight + rMidLeft >= 3) {
         Serial.println("Start of the delay...");
         goForward();
