@@ -5,38 +5,38 @@
 
 // *-- Motors --*
 // Working for forward only, backward pins can be added.
-int leftMotor   = 5;
-int rightMotor  = 3;
+#define leftMotor 5
+#define rightMotor 3
 
 // *-- Sensors --*
 // You can read the output as digital or analog for advanced purposes.
 // Digital pins:
-int leftSensor      = 10;
-int midSensor       = 9;
-int rightSensor     = 8;
-int midLeftSensor   = 12;
-int midRightSensor  = 11;
+#define leftSensor 10
+#define midSensor 9
+#define rightSensor 8
+#define midLeftSensor 12
+#define midRightSensor 11
 
 // A Photoresistor is used to continue the run after stopping.
 // Edit the pin number to fit your connections.
-int photoRes = A0;
+#define photoRes A0
 
 // The normal running speed, adjust it according to the
 // battery power, the track, the car size, and its weight.
 //
 // 200 may be too fast.
 // Analog Range: 0 - 255 --> 0 volt - Motors given voltage.
-int highSpeed = 200;
+#define highSpeed 200
 
 // A slow speed for cuts in the track
-int slowSpeed = highSpeed * .60; // 60% the highSpeed. (Adjust it)
+#define slowSpeed highSpeed * .60 // 60% the highSpeed. (Adjust it)
 
 // An optional low speed, for turning right and left.
-int lowSpeed  = 0;
+#define lowSpeed 0
 
 // Sensor's digital output, 1 for blacks, 0 for whites.
-int onTrack  = 1;
-int offTrack = 0;
+#define onTrack 1
+#define offTrack 0
 
 void setup() {
     // Don't forget to use the serial monitor while debugging your code.
