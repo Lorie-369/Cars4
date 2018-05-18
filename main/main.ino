@@ -26,6 +26,9 @@
 //
 // 200 may be too fast.
 // Analog Range: 0 - 255 --> 0 volt - Motors given voltage.
+// 
+// As long as you don't need the ability of variable speeds during the run,
+// leave them defined, and if you need this ability, change them to variables.
 #define highSpeed 200
 
 // A slow speed for cuts in the track
