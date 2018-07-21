@@ -1,12 +1,19 @@
 # Cars 4 – An Arduino Line Follower Robot.
 
-### Strategy:
+## Team:
+- Mohammed Ammar
+- Youssef Alsoly
+- Ahmed Ammar
+- Omar Yonnis
+- Amr Essam
+
+## Strategy:
 
 The robot uses the bang-bang method to pass the track, with special cases included like cuts in track and intersections.
 
 The robot uses a photoresistor to continue running after it stops due to the stopping special case. ***(Can be edited or removed)***
 
-### Hardware:
+## Hardware:
 
 - Arduino Uno.
 - IR Sensor Modules (x5): [Link](http://ram-e-shop.com/oscmax/catalog/product_info.php?products_id=3213).
@@ -15,5 +22,5 @@ The robot uses a photoresistor to continue running after it stops due to the sto
 - [Photoresistor](https://www.arduino.cc/en/uploads/Tutorial/PhotoCellA0.png).
 - H-Bridge: [Link](https://howtomechatronics.com/tutorials/arduino/arduino-dc-motor-control-tutorial-l298n-pwm-h-bridge/).
 
-### Naming:
+## Naming:
 This project is named after the famous [Cars](https://en.wikipedia.org/wiki/Cars_(franchise)) movie franchise. All the ♥️ Disney & Pixer.
